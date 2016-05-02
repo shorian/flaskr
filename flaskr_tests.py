@@ -17,7 +17,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_empty_db(self):
         rv = self.app.get('/')
-        assert 'No entries here so far' in rv.data
+        assert 'No entries here so far' in str(rv.data, encoding='utf-8')
 
 if __name__ == '__main__':
     unittest.main()

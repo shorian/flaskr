@@ -10,7 +10,7 @@ def show_entries():
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
-@bp.route('/add', methods=['POST'])
+@bp.route('/add', methods=['GET', 'POST'])
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
@@ -18,7 +18,7 @@ def add_entry():
                  [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('.show_entries'))
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -31,11 +31,11 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('show_entries'))
-        return render_template('login.html', error=error)
+            return redirect(url_for('.show_entries'))
+    return render_template('login.html', error=error)
 
 @bp.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('.show_entries'))
