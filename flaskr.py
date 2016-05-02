@@ -1,7 +1,6 @@
 # all the imports
 import sqlite3
-from flask import Flask, request, session, g, redirect, url_for, \
-	abort, render_template, flash
+from flask import Flask, g, render_template
 from contextlib import closing
 from views import bp
 
@@ -36,6 +35,12 @@ def teardown_request(exception):
     db = getattr(g, 'db', None)
     if db is not None:
         db.close()
+
+# @app.route('/')
+# def show_entries():
+#     cur = g.db.execute('select title, text from entries order by id desc')
+#     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+#     return render_template('show_entries.html', entries=entries)
 
 if __name__== '__main__':
 	app.run()
