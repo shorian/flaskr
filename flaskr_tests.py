@@ -15,9 +15,6 @@ class FlaskrTestCase(unittest.TestCase):
         os.close(self.db_fd)
         os.unlink(flaskr.app.config['DATABASE'])
 
-if __name__ == '__main__':
-    unittest.main()
-
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -31,4 +28,8 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_empty_db(self):
         rv = self.app.get('/')
+        import pdb; pdb.set_trace()
         assert 'No entries here so far' in rv.data
+
+if __name__ == '__main__':
+    unittest.main()
